@@ -1,0 +1,883 @@
+{
+  "farmConfig": {
+    "name": "Amrit Dairy Farms",
+    "tagline": "Pure, Organic & Farm-Fresh Milk from Our Pastures to Your Doorstep within 3 Hours",
+    "fssaiLicense": "11223344556677",
+    "contactPhone": "+91 98765 43210",
+    "contactEmail": "care@amritdairy.com",
+    "whatsappNumber": "+919876543210",
+    "address": "Survey No. 42, Green Pastures Road, Nelamangala",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "pincode": "562123",
+    "morningSlot": "05:30 AM - 07:30 AM",
+    "eveningSlot": "05:30 PM - 07:30 PM",
+    "currency": "₹",
+    "freeDeliveryThreshold": 0
+  },
+  "serviceAreas": [
+    {
+      "pincode": "560034",
+      "locality": "Koramangala 1st-8th Block",
+      "city": "Bangalore",
+      "hub": "South Hub",
+      "active": true,
+      "morningTime": "5:30 AM - 6:45 AM",
+      "eveningTime": "5:30 PM - 6:30 PM"
+    },
+    {
+      "pincode": "560038",
+      "locality": "Indiranagar & Domlur",
+      "city": "Bangalore",
+      "hub": "East Hub",
+      "active": true,
+      "morningTime": "5:45 AM - 7:00 AM",
+      "eveningTime": "5:45 PM - 6:45 PM"
+    },
+    {
+      "pincode": "560102",
+      "locality": "HSR Layout Sectors 1-7",
+      "city": "Bangalore",
+      "hub": "South Hub",
+      "active": true,
+      "morningTime": "5:30 AM - 6:30 AM",
+      "eveningTime": "5:30 PM - 6:30 PM"
+    },
+    {
+      "pincode": "560041",
+      "locality": "Jayanagar 1st-9th Block",
+      "city": "Bangalore",
+      "hub": "Central Hub",
+      "active": true,
+      "morningTime": "5:15 AM - 6:30 AM",
+      "eveningTime": "5:15 PM - 6:15 PM"
+    },
+    {
+      "pincode": "560003",
+      "locality": "Malleshwaram & Vyalikaval",
+      "city": "Bangalore",
+      "hub": "North Hub",
+      "active": true,
+      "morningTime": "5:30 AM - 6:45 AM",
+      "eveningTime": "5:30 PM - 6:30 PM"
+    },
+    {
+      "pincode": "560066",
+      "locality": "Whitefield & ITPL Road",
+      "city": "Bangalore",
+      "hub": "East Hub",
+      "active": true,
+      "morningTime": "6:00 AM - 7:15 AM",
+      "eveningTime": "6:00 PM - 7:00 PM"
+    },
+    {
+      "pincode": "560076",
+      "locality": "JP Nagar Phases 1-8",
+      "city": "Bangalore",
+      "hub": "South Hub",
+      "active": true,
+      "morningTime": "5:30 AM - 6:45 AM",
+      "eveningTime": "5:30 PM - 6:30 PM"
+    },
+    {
+      "pincode": "560100",
+      "locality": "Electronic City Phase 1 & 2",
+      "city": "Bangalore",
+      "hub": "South Hub",
+      "active": true,
+      "morningTime": "5:45 AM - 7:00 AM",
+      "eveningTime": "5:45 PM - 6:45 PM"
+    },
+    {
+      "pincode": "560103",
+      "locality": "Bellandur & Outer Ring Road",
+      "city": "Bangalore",
+      "hub": "East Hub",
+      "active": true,
+      "morningTime": "5:45 AM - 7:00 AM",
+      "eveningTime": "5:45 PM - 6:45 PM"
+    },
+    {
+      "pincode": "560001",
+      "locality": "MG Road, Richmond Town, CBD",
+      "city": "Bangalore",
+      "hub": "Central Hub",
+      "active": true,
+      "morningTime": "5:15 AM - 6:30 AM",
+      "eveningTime": "5:15 PM - 6:15 PM"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-1",
+      "sku": "MILK-A2-COW-1L",
+      "name": "Pure A2 Desi Gir Cow Milk",
+      "name_hi": "शुद्ध ए2 देसी गिर गाय का दूध",
+      "name_kn": "ಶುದ್ಧ ಎ2 ದೇಶಿ ಗಿರ್ ಹಸುವಿನ ಹಾಲು",
+      "category": "milk",
+      "unit": "litre",
+      "price": 80,
+      "originalPrice": 90,
+      "fat": "4.5%",
+      "snf": "8.8%",
+      "stock": 450,
+      "badge": "Bestseller",
+      "subscriptionAvailable": true,
+      "imageUrl": "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80",
+      "description": "100% natural, single-origin A2 beta-casein milk directly from Vedic Gir cows. Delivered raw or pasteurized in chilled glass bottles within 3 hours of morning milking.",
+      "benefits": [
+        "A2 Protein for easy digestion",
+        "No synthetic hormones or oxytocin",
+        "Lab tested every single morning",
+        "Glass bottle packaging"
+      ]
+    },
+    {
+      "id": "prod-2",
+      "sku": "MILK-BUFF-1L",
+      "name": "Creamy Murrah Buffalo Milk",
+      "name_hi": "गाढ़ा मुर्रा भैंस का ताजा दूध",
+      "name_kn": "ಕೆನೆಭರಿತ ಮುರ್ರಾ ಎಮ್ಮೆಯ ಹಾಲು",
+      "category": "milk",
+      "unit": "litre",
+      "price": 88,
+      "originalPrice": 98,
+      "fat": "7.2%",
+      "snf": "9.2%",
+      "stock": 320,
+      "badge": "Rich & Creamy",
+      "subscriptionAvailable": true,
+      "imageUrl": "https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?auto=format&fit=crop&w=600&q=80",
+      "description": "Rich, thick, and velvety whole buffalo milk from prime Murrah breed. Perfect for creamy tea, thick malai curd, and traditional homemade sweets.",
+      "benefits": [
+        "High natural fat (7.2%)",
+        "Thick layer of golden malai",
+        "Ideal for making paneer & rabdi",
+        "Unprocessed freshness"
+      ]
+    },
+    {
+      "id": "prod-3",
+      "sku": "GHEE-BILONA-500ML",
+      "name": "Desi Cow Vedic Bilona Ghee",
+      "name_hi": "वैदिक बिलोना देसी गाय का घी",
+      "name_kn": "ವೈದಿಕ ಬಿಲೋನಾ ಹಸುವಿನ ತುಪ್ಪ",
+      "category": "ghee",
+      "unit": "500ml jar",
+      "price": 1350,
+      "originalPrice": 1500,
+      "fat": "99.8%",
+      "snf": "0.2%",
+      "stock": 95,
+      "badge": "Vedic Gold",
+      "subscriptionAvailable": false,
+      "imageUrl": "https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=600&q=80",
+      "description": "Handcrafted using the ancient 5-step Vedic Bilona method: Milk to Curd to Makkhan to Ghee over slow fire. Granular texture, heavenly aroma, and loaded with Omega-3 and butyric acid.",
+      "benefits": [
+        "Churned in clay & wooden churners",
+        "A2 Gir cow cultured curd base",
+        "Immunity boosting & gut friendly",
+        "Zero preservatives or artificial flavors"
+      ]
+    },
+    {
+      "id": "prod-4",
+      "sku": "PANEER-FRESH-200G",
+      "name": "Farm-Fresh Malai Paneer",
+      "name_hi": "ताजा फार्म मलाई पनीर",
+      "name_kn": "ತಾಜಾ ಫಾರ್ಮ್ ಮಲೈ ಪನೀರ್",
+      "category": "paneer",
+      "unit": "200g pack",
+      "price": 125,
+      "originalPrice": 140,
+      "fat": "24%",
+      "snf": "18%",
+      "stock": 140,
+      "badge": "Made Today",
+      "subscriptionAvailable": true,
+      "imageUrl": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=600&q=80",
+      "description": "Melt-in-your-mouth artisanal cottage cheese made fresh every morning by curdling whole milk with natural lemon juice. No cornstarch, no rubbery texture, and zero chemicals.",
+      "benefits": [
+        "High biological protein (18g/100g)",
+        "Curdled naturally without chemicals",
+        "Spongy and soft texture",
+        "Vacuum sealed same-day freshness"
+      ]
+    },
+    {
+      "id": "prod-5",
+      "sku": "CURD-POT-500G",
+      "name": "Thick Natural Set Curd (Dahi)",
+      "name_hi": "गाढ़ा प्राकृतिक देसी दही",
+      "name_kn": "ದಪ್ಪ ನೈಸರ್ಗಿಕ ಗಟ್ಟಿ ಮೊಸರು",
+      "category": "curd",
+      "unit": "500g clay tub",
+      "price": 50,
+      "originalPrice": 58,
+      "fat": "5.0%",
+      "snf": "9.0%",
+      "stock": 180,
+      "badge": "Probiotic",
+      "subscriptionAvailable": true,
+      "imageUrl": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80",
+      "description": "Naturally fermented whole milk curd with active live probiotics. Mild, sweet, thick, and soothing for digestive wellness.",
+      "benefits": [
+        "Over 1 billion CFUs of natural gut bacteria",
+        "Naturally thick without gelatin or starch",
+        "Cooling for digestion",
+        "Eco-friendly clay container"
+      ]
+    },
+    {
+      "id": "prod-6",
+      "sku": "BUTTER-FARM-250G",
+      "name": "Traditional Desi Makkhan (White Butter)",
+      "name_hi": "ताजा सफेद मक्खन",
+      "name_kn": "ತಾಜಾ ಬಿಳಿ ಬೆಣ್ಣೆ (ಮಖನ್)",
+      "category": "butter",
+      "unit": "250g pack",
+      "price": 170,
+      "originalPrice": 195,
+      "fat": "82%",
+      "snf": "2.0%",
+      "stock": 75,
+      "badge": "Artisanal",
+      "subscriptionAvailable": false,
+      "imageUrl": "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=600&q=80",
+      "description": "Nostalgic unsalted white butter churned from cultured malai. Pure, fragrant, and heavenly spread on hot parathas and rotis.",
+      "benefits": [
+        "100% unsalted & preservative free",
+        "Rich in fat-soluble vitamins A, D, E",
+        "Freshly hand-churned",
+        "Traditional taste"
+      ]
+    },
+    {
+      "id": "prod-7",
+      "sku": "CHAAS-MASALA-300ML",
+      "name": "Spiced Farm Buttermilk (Chaas)",
+      "name_hi": "मसाला छाछ",
+      "name_kn": "ಮಸಾಲೆ ಮಜ್ಜಿಗೆ",
+      "category": "beverage",
+      "unit": "300ml bottle",
+      "price": 25,
+      "originalPrice": 30,
+      "fat": "1.5%",
+      "snf": "6.0%",
+      "stock": 220,
+      "badge": "Refreshing",
+      "subscriptionAvailable": true,
+      "imageUrl": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=600&q=80",
+      "description": "Chilled organic buttermilk tempered with roasted cumin seeds, fresh curry leaves, grated ginger, and Himalayan rock salt. The ultimate natural hydration drink.",
+      "benefits": [
+        "Instantly cools the body",
+        "Zero added sugars or stabilizers",
+        "Boosts post-meal digestion",
+        "Rich in electrolytes"
+      ]
+    }
+  ],
+  "customers": [
+    {
+      "id": "cust-1",
+      "name": "Ananya Sharma",
+      "phone": "+91 98450 12345",
+      "email": "ananya.sharma@gmail.com",
+      "address": "Flat 402, Green Glen Layout, Bellandur",
+      "pincode": "560103",
+      "walletBalance": 1240,
+      "role": "customer",
+      "referralCode": "ANANYA20",
+      "language": "en"
+    },
+    {
+      "id": "cust-2",
+      "name": "Rajesh Kulkarni",
+      "phone": "+91 97400 56789",
+      "email": "rajesh.k@outlook.com",
+      "address": "#88, 14th Main, 4th Sector, HSR Layout",
+      "pincode": "560102",
+      "walletBalance": 680,
+      "role": "customer",
+      "referralCode": "RAJESH50",
+      "language": "kn"
+    },
+    {
+      "id": "cust-3",
+      "name": "Sunil Verma",
+      "phone": "+91 99000 78901",
+      "email": "sunil.verma@techmail.com",
+      "address": "Villa 12, Palm Meadows, Whitefield",
+      "pincode": "560066",
+      "walletBalance": 2450,
+      "role": "customer",
+      "referralCode": "SUNILV10",
+      "language": "hi"
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": "sub-101",
+      "customerId": "cust-1",
+      "customerName": "Ananya Sharma",
+      "customerPhone": "+91 98450 12345",
+      "productId": "prod-1",
+      "productName": "Pure A2 Desi Gir Cow Milk",
+      "frequency": "daily",
+      "quantity": 1,
+      "unitPrice": 80,
+      "timeSlot": "morning",
+      "startDate": "2026-10-01",
+      "status": "active",
+      "deliveryAddress": "Flat 402, Green Glen Layout, Bellandur, Bangalore - 560103",
+      "pincode": "560103",
+      "bottlePreference": "glass_bottle",
+      "skippedDates": [
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "sub-102",
+      "customerId": "cust-2",
+      "customerName": "Rajesh Kulkarni",
+      "customerPhone": "+91 97400 56789",
+      "productId": "prod-2",
+      "productName": "Creamy Murrah Buffalo Milk",
+      "frequency": "alternate_day",
+      "quantity": 2,
+      "unitPrice": 88,
+      "timeSlot": "morning",
+      "startDate": "2026-09-15",
+      "status": "active",
+      "deliveryAddress": "#88, 14th Main, 4th Sector, HSR Layout, Bangalore - 560102",
+      "pincode": "560102",
+      "bottlePreference": "glass_bottle",
+      "skippedDates": []
+    },
+    {
+      "id": "sub-103",
+      "customerId": "cust-3",
+      "customerName": "Sunil Verma",
+      "customerPhone": "+91 99000 78901",
+      "productId": "prod-4",
+      "productName": "Farm-Fresh Malai Paneer",
+      "frequency": "custom_days",
+      "customDays": [
+        "Tue",
+        "Fri",
+        "Sun"
+      ],
+      "quantity": 1,
+      "unitPrice": 125,
+      "timeSlot": "morning",
+      "startDate": "2026-10-10",
+      "status": "active",
+      "deliveryAddress": "Villa 12, Palm Meadows, Whitefield, Bangalore - 560066",
+      "pincode": "560066",
+      "bottlePreference": "pouch",
+      "skippedDates": []
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord-801",
+      "orderNumber": "AMR-2026-801",
+      "customerId": "cust-1",
+      "customerName": "Ananya Sharma",
+      "customerPhone": "+91 98450 12345",
+      "orderType": "subscription_daily",
+      "deliveryDate": "2026-10-28",
+      "timeSlot": "morning",
+      "items": [
+        {
+          "productId": "prod-1",
+          "productName": "Pure A2 Desi Gir Cow Milk",
+          "quantity": 1,
+          "unitPrice": 80,
+          "totalPrice": 80
+        }
+      ],
+      "subtotal": 80,
+      "discount": 0,
+      "netAmount": 80,
+      "paymentMode": "wallet",
+      "paymentStatus": "paid",
+      "deliveryStatus": "delivered",
+      "deliveryAddress": "Flat 402, Green Glen Layout, Bellandur",
+      "pincode": "560103",
+      "driverName": "Mahesh Kumar (Route A)",
+      "bottlesDelivered": 1,
+      "bottlesReturned": 1,
+      "deliveredAt": "2026-10-28T06:14:00+05:30"
+    },
+    {
+      "id": "ord-802",
+      "orderNumber": "AMR-2026-802",
+      "customerId": "cust-2",
+      "customerName": "Rajesh Kulkarni",
+      "customerPhone": "+91 97400 56789",
+      "orderType": "subscription_daily",
+      "deliveryDate": "2026-10-28",
+      "timeSlot": "morning",
+      "items": [
+        {
+          "productId": "prod-2",
+          "productName": "Creamy Murrah Buffalo Milk",
+          "quantity": 2,
+          "unitPrice": 88,
+          "totalPrice": 176
+        }
+      ],
+      "subtotal": 176,
+      "discount": 0,
+      "netAmount": 176,
+      "paymentMode": "wallet",
+      "paymentStatus": "paid",
+      "deliveryStatus": "delivered",
+      "deliveryAddress": "#88, 14th Main, 4th Sector, HSR Layout",
+      "pincode": "560102",
+      "driverName": "Mahesh Kumar (Route A)",
+      "bottlesDelivered": 2,
+      "bottlesReturned": 2,
+      "deliveredAt": "2026-10-28T06:32:00+05:30"
+    },
+    {
+      "id": "ord-803",
+      "orderNumber": "AMR-2026-803",
+      "customerId": "cust-3",
+      "customerName": "Sunil Verma",
+      "customerPhone": "+91 99000 78901",
+      "orderType": "one_time",
+      "deliveryDate": "2026-10-29",
+      "timeSlot": "morning",
+      "items": [
+        {
+          "productId": "prod-3",
+          "productName": "Desi Cow Vedic Bilona Ghee (500ml)",
+          "quantity": 1,
+          "unitPrice": 1350,
+          "totalPrice": 1350
+        },
+        {
+          "productId": "prod-4",
+          "productName": "Farm-Fresh Malai Paneer (200g)",
+          "quantity": 2,
+          "unitPrice": 125,
+          "totalPrice": 250
+        }
+      ],
+      "subtotal": 1600,
+      "discount": 100,
+      "netAmount": 1500,
+      "paymentMode": "upi",
+      "paymentStatus": "paid",
+      "deliveryStatus": "assigned",
+      "deliveryAddress": "Villa 12, Palm Meadows, Whitefield",
+      "pincode": "560066",
+      "driverName": "Suresh Gowda (Route B)",
+      "bottlesDelivered": 0,
+      "bottlesReturned": 0,
+      "deliveredAt": null
+    }
+  ],
+  "walletTransactions": [
+    {
+      "id": "wtx-1",
+      "customerId": "cust-1",
+      "amount": 1000,
+      "type": "recharge",
+      "description": "UPI Auto-Recharge (Ref: UPI-98314)",
+      "balanceAfter": 1320,
+      "date": "2026-10-25T10:30:00+05:30"
+    },
+    {
+      "id": "wtx-2",
+      "customerId": "cust-1",
+      "amount": -80,
+      "type": "order_debit",
+      "description": "Subscription Order #AMR-2026-801",
+      "balanceAfter": 1240,
+      "date": "2026-10-28T05:00:00+05:30"
+    },
+    {
+      "id": "wtx-3",
+      "customerId": "cust-2",
+      "amount": 1500,
+      "type": "recharge",
+      "description": "Razorpay NetBanking Recharge",
+      "balanceAfter": 856,
+      "date": "2026-10-20T18:15:00+05:30"
+    },
+    {
+      "id": "wtx-4",
+      "customerId": "cust-2",
+      "amount": -176,
+      "type": "order_debit",
+      "description": "Subscription Order #AMR-2026-802",
+      "balanceAfter": 680,
+      "date": "2026-10-28T05:00:00+05:30"
+    }
+  ],
+  "cows": [
+    {
+      "id": "cow-1",
+      "tagNumber": "AMR-001",
+      "name": "Kamadhenu",
+      "breed": "Gir",
+      "type": "Cow",
+      "dob": "2020-03-15",
+      "ageYears": 4.6,
+      "weightKg": 420,
+      "lactationNumber": 2,
+      "lactationStage": "early",
+      "healthStatus": "healthy",
+      "dailyAvgYield": 16.5,
+      "lastCalvingDate": "2026-08-10",
+      "expectedCalvingDate": null,
+      "notes": "Top daily yielder. Calm temperament, fed on organic green clover.",
+      "photoUrl": "https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "cow-2",
+      "tagNumber": "AMR-002",
+      "name": "Gauri",
+      "breed": "Sahiwal",
+      "type": "Cow",
+      "dob": "2019-11-20",
+      "ageYears": 5,
+      "weightKg": 440,
+      "lactationNumber": 3,
+      "lactationStage": "mid",
+      "healthStatus": "healthy",
+      "dailyAvgYield": 14,
+      "lastCalvingDate": "2026-05-18",
+      "expectedCalvingDate": "2027-02-25",
+      "notes": "Confirmed pregnant via ultrasound. Third lactation, rich golden milk.",
+      "photoUrl": "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "cow-3",
+      "tagNumber": "AMR-003",
+      "name": "Yamuna",
+      "breed": "Murrah Buffalo",
+      "type": "Buffalo",
+      "dob": "2021-01-10",
+      "ageYears": 3.8,
+      "weightKg": 580,
+      "lactationNumber": 2,
+      "lactationStage": "early",
+      "healthStatus": "healthy",
+      "dailyAvgYield": 18,
+      "lastCalvingDate": "2026-09-01",
+      "expectedCalvingDate": null,
+      "notes": "Champion breed Murrah buffalo. Extremely high fat yield (7.8%).",
+      "photoUrl": "https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "cow-4",
+      "tagNumber": "AMR-004",
+      "name": "Radha",
+      "breed": "Gir",
+      "type": "Cow",
+      "dob": "2020-07-08",
+      "ageYears": 4.3,
+      "weightKg": 395,
+      "lactationNumber": 2,
+      "lactationStage": "mid",
+      "healthStatus": "healthy",
+      "dailyAvgYield": 13.5,
+      "lastCalvingDate": "2026-06-12",
+      "expectedCalvingDate": null,
+      "notes": "Gentle mother cow. Loves open pasture roaming.",
+      "photoUrl": "https://images.unsplash.com/photo-1596733430284-f7437764b149?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "cow-5",
+      "tagNumber": "AMR-005",
+      "name": "Kalyani",
+      "breed": "Red Sindhi",
+      "type": "Cow",
+      "dob": "2022-02-14",
+      "ageYears": 2.7,
+      "weightKg": 360,
+      "lactationNumber": 1,
+      "lactationStage": "early",
+      "healthStatus": "healthy",
+      "dailyAvgYield": 11.5,
+      "lastCalvingDate": "2026-07-22",
+      "expectedCalvingDate": null,
+      "notes": "First lactation primiparous cow. Very sweet temperament.",
+      "photoUrl": "https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "cow-6",
+      "tagNumber": "AMR-006",
+      "name": "Nandi Rani",
+      "breed": "Murrah Buffalo",
+      "type": "Buffalo",
+      "dob": "2018-09-05",
+      "ageYears": 6.1,
+      "weightKg": 610,
+      "lactationNumber": 4,
+      "lactationStage": "late",
+      "healthStatus": "healthy",
+      "dailyAvgYield": 11,
+      "lastCalvingDate": "2026-01-14",
+      "expectedCalvingDate": "2026-12-15",
+      "notes": "Due for calving mid-December. Transition diet with mineral mix in progress.",
+      "photoUrl": "https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?auto=format&fit=crop&w=600&q=80"
+    }
+  ],
+  "milkRecords": [
+    {
+      "id": "mk-1",
+      "cowId": "cow-1",
+      "cowTag": "AMR-001",
+      "cowName": "Kamadhenu",
+      "date": "2026-10-28",
+      "session": "morning",
+      "yieldLitres": 9.5,
+      "fat": 4.6,
+      "snf": 8.9,
+      "temperature": 4
+    },
+    {
+      "id": "mk-2",
+      "cowId": "cow-1",
+      "cowTag": "AMR-001",
+      "cowName": "Kamadhenu",
+      "date": "2026-10-28",
+      "session": "evening",
+      "yieldLitres": 7.2,
+      "fat": 4.8,
+      "snf": 9,
+      "temperature": 4.2
+    },
+    {
+      "id": "mk-3",
+      "cowId": "cow-2",
+      "cowTag": "AMR-002",
+      "cowName": "Gauri",
+      "date": "2026-10-28",
+      "session": "morning",
+      "yieldLitres": 8,
+      "fat": 4.4,
+      "snf": 8.7,
+      "temperature": 4.1
+    },
+    {
+      "id": "mk-4",
+      "cowId": "cow-2",
+      "cowTag": "AMR-002",
+      "cowName": "Gauri",
+      "date": "2026-10-28",
+      "session": "evening",
+      "yieldLitres": 6,
+      "fat": 4.5,
+      "snf": 8.8,
+      "temperature": 4.2
+    },
+    {
+      "id": "mk-5",
+      "cowId": "cow-3",
+      "cowTag": "AMR-003",
+      "cowName": "Yamuna",
+      "date": "2026-10-28",
+      "session": "morning",
+      "yieldLitres": 10.5,
+      "fat": 7.6,
+      "snf": 9.4,
+      "temperature": 3.9
+    },
+    {
+      "id": "mk-6",
+      "cowId": "cow-3",
+      "cowTag": "AMR-003",
+      "cowName": "Yamuna",
+      "date": "2026-10-28",
+      "session": "evening",
+      "yieldLitres": 7.8,
+      "fat": 7.8,
+      "snf": 9.5,
+      "temperature": 4
+    },
+    {
+      "id": "mk-7",
+      "cowId": "cow-4",
+      "cowTag": "AMR-004",
+      "cowName": "Radha",
+      "date": "2026-10-28",
+      "session": "morning",
+      "yieldLitres": 7.5,
+      "fat": 4.3,
+      "snf": 8.6,
+      "temperature": 4.1
+    },
+    {
+      "id": "mk-8",
+      "cowId": "cow-4",
+      "cowTag": "AMR-004",
+      "cowName": "Radha",
+      "date": "2026-10-28",
+      "session": "evening",
+      "yieldLitres": 6,
+      "fat": 4.4,
+      "snf": 8.7,
+      "temperature": 4.2
+    },
+    {
+      "id": "mk-9",
+      "cowId": "cow-5",
+      "cowTag": "AMR-005",
+      "cowName": "Kalyani",
+      "date": "2026-10-28",
+      "session": "morning",
+      "yieldLitres": 6.5,
+      "fat": 4.5,
+      "snf": 8.8,
+      "temperature": 4
+    },
+    {
+      "id": "mk-10",
+      "cowId": "cow-5",
+      "cowTag": "AMR-005",
+      "cowName": "Kalyani",
+      "date": "2026-10-28",
+      "session": "evening",
+      "yieldLitres": 5,
+      "fat": 4.6,
+      "snf": 8.9,
+      "temperature": 4.1
+    }
+  ],
+  "feedInventory": [
+    {
+      "id": "feed-1",
+      "name": "Organic Green Sorghum & Napier",
+      "category": "green_fodder",
+      "stockKg": 1450,
+      "alertKg": 300,
+      "costPerKg": 4.5
+    },
+    {
+      "id": "feed-2",
+      "name": "Dry Wheat Straw (Bhusa)",
+      "category": "dry_fodder",
+      "stockKg": 2100,
+      "alertKg": 500,
+      "costPerKg": 8
+    },
+    {
+      "id": "feed-3",
+      "name": "Cattle Feed Pellets (22% Protein)",
+      "category": "concentrate",
+      "stockKg": 850,
+      "alertKg": 200,
+      "costPerKg": 28.5
+    },
+    {
+      "id": "feed-4",
+      "name": "Mustard & Cottonseed Oil Cake",
+      "category": "concentrate",
+      "stockKg": 420,
+      "alertKg": 150,
+      "costPerKg": 36
+    },
+    {
+      "id": "feed-5",
+      "name": "Chelated Mineral Mixture & Salt Licks",
+      "category": "minerals_supplements",
+      "stockKg": 180,
+      "alertKg": 50,
+      "costPerKg": 95
+    }
+  ],
+  "expenses": [
+    {
+      "id": "exp-1",
+      "date": "2026-10-26",
+      "category": "feed",
+      "amount": 12500,
+      "payee": "Kisan Cattle Feeds",
+      "description": "500kg Wheat Straw & Concentrate bags"
+    },
+    {
+      "id": "exp-2",
+      "date": "2026-10-25",
+      "category": "veterinary",
+      "amount": 3200,
+      "payee": "Dr. Ramesh BVSc",
+      "description": "Routine health checkup & FMD booster doses"
+    },
+    {
+      "id": "exp-3",
+      "date": "2026-10-27",
+      "category": "fuel_logistics",
+      "amount": 2400,
+      "payee": "HP Petrol Pump",
+      "description": "Delivery fleet EV charging & emergency van diesel"
+    },
+    {
+      "id": "exp-4",
+      "date": "2026-10-24",
+      "category": "packaging",
+      "amount": 6500,
+      "payee": "Swastik Glassware",
+      "description": "200 Sterilized embossed 1L glass bottles"
+    }
+  ],
+  "complaints": [
+    {
+      "id": "tkt-1",
+      "ticketNumber": "TKT-1082",
+      "customerId": "cust-2",
+      "customerName": "Rajesh Kulkarni",
+      "category": "late_delivery",
+      "rating": 4,
+      "comment": "Milk arrived at 7:15 AM today instead of the usual 6:30 AM. Everything was cold and fresh though.",
+      "status": "resolved",
+      "resolutionNotes": "Traffic diversion on 14th Main due to road repair. Route A driver informed.",
+      "createdAt": "2026-10-28T07:30:00+05:30"
+    }
+  ],
+  "coupons": [
+    {
+      "code": "FRESH50",
+      "discountPercentage": 20,
+      "maxDiscount": 80,
+      "minOrder": 200,
+      "active": true
+    },
+    {
+      "code": "TRYMILK",
+      "flatDiscount": 50,
+      "minOrder": 150,
+      "active": true
+    },
+    {
+      "code": "FARMSTART",
+      "discountPercentage": 15,
+      "maxDiscount": 100,
+      "minOrder": 300,
+      "active": true
+    }
+  ],
+  "deliveryPartners": [
+    {
+      "id": "drv-1",
+      "name": "Mahesh Kumar",
+      "phone": "+91 98860 33445",
+      "route": "Route A - South Bangalore (HSR, Koramangala, Bellandur)",
+      "vehicle": "EV Loader KA-01-EQ-4421",
+      "active": true
+    },
+    {
+      "id": "drv-2",
+      "name": "Suresh Gowda",
+      "phone": "+91 98860 77889",
+      "route": "Route B - East Bangalore (Indiranagar, Whitefield)",
+      "vehicle": "EV Loader KA-01-EQ-8812",
+      "active": true
+    }
+  ]
+}

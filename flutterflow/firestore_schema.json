@@ -1,0 +1,133 @@
+{
+  "description": "CowCare Firestore Collections Schema for FlutterFlow",
+  "collections": [
+    {
+      "name": "users",
+      "fields": {
+        "uid": "String",
+        "email": "String",
+        "displayName": "String",
+        "farmId": "String",
+        "role": "String",
+        "createdAt": "DateTime"
+      }
+    },
+    {
+      "name": "farms",
+      "fields": {
+        "farmId": "String",
+        "name": "String",
+        "ownerUid": "String",
+        "phone": "String",
+        "village": "String",
+        "district": "String",
+        "state": "String",
+        "createdAt": "DateTime"
+      }
+    },
+    {
+      "name": "cows",
+      "fields": {
+        "tagId": "String",
+        "name": "String",
+        "breed": "String",
+        "dob": "DateTime",
+        "gender": "String",
+        "status": "String",
+        "purchaseDate": "DateTime",
+        "purchaseCost": "Double",
+        "photoUrl": "ImagePath",
+        "notes": "String",
+        "farmId": "String",
+        "createdAt": "DateTime",
+        "updatedAt": "DateTime"
+      }
+    },
+    {
+      "name": "milk_records",
+      "fields": {
+        "farmId": "String",
+        "cowId": "String",
+        "cowTag": "String",
+        "date": "String",
+        "session": "String",
+        "quantityLitres": "Double",
+        "fatContent": "Double",
+        "snf": "Double",
+        "notes": "String",
+        "recordedBy": "String",
+        "createdAt": "DateTime",
+        "updatedAt": "DateTime"
+      }
+    },
+    {
+      "name": "feed_inventory",
+      "fields": {
+        "farmId": "String",
+        "feedName": "String",
+        "feedType": "String",
+        "quantityKg": "Double",
+        "minAlertQuantityKg": "Double",
+        "unitCost": "Double",
+        "purchaseDate": "DateTime",
+        "supplier": "String"
+      }
+    },
+    {
+      "name": "feed_records",
+      "fields": {
+        "farmId": "String",
+        "feedId": "String",
+        "feedName": "String",
+        "date": "String",
+        "quantityUsedKg": "Double",
+        "notes": "String",
+        "recordedBy": "String"
+      }
+    },
+    {
+      "name": "health_records",
+      "fields": {
+        "farmId": "String",
+        "cowId": "String",
+        "cowTag": "String",
+        "date": "String",
+        "type": "String",
+        "title": "String",
+        "symptoms": "String",
+        "diagnosis": "String",
+        "treatment": "String",
+        "doctorName": "String",
+        "cost": "Double",
+        "nextFollowupDate": "DateTime",
+        "notes": "String",
+        "attachments": "List<ImagePath>"
+      }
+    },
+    {
+      "name": "transactions",
+      "fields": {
+        "farmId": "String",
+        "date": "String",
+        "type": "String",
+        "category": "String",
+        "amount": "Double",
+        "paymentMethod": "String",
+        "status": "String",
+        "customerOrSupplier": "String",
+        "notes": "String"
+      }
+    },
+    {
+      "name": "reminders",
+      "fields": {
+        "farmId": "String",
+        "title": "String",
+        "dueDate": "DateTime",
+        "category": "String",
+        "targetId": "String",
+        "isCompleted": "Boolean"
+      }
+    }
+  ]
+}

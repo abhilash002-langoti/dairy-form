@@ -1,0 +1,276 @@
+openapi: 3.0.3
+info:
+  title: Amrit Dairy Farms API
+  description: Complete REST API for Amrit Dairy farm-to-doorstep delivery, subscriptions, delivery fleet, and cattle management.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Local development & sandbox server
+  - url: https://api.amritdairy.com/api
+    description: Production Cloud API
+paths:
+  /health:
+    get:
+      summary: System health check
+      responses:
+        '200':
+          description: OK
+  /config:
+    get:
+      summary: Retrieve farm branding and service PIN codes
+      responses:
+        '200':
+          description: Farm configuration details
+  /pincodes/check:
+    get:
+      summary: Check if morning milk delivery operates in a PIN code
+      parameters:
+        - name: pincode
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "560034"
+      responses:
+        '200':
+          description: Availability result
+  /products:
+    get:
+      summary: Retrieve product catalog
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [milk, ghee, paneer, curd, butter, beverage]
+      responses:
+        '200':
+          description: List of dairy products
+  /auth/send-otp:
+    post:
+      summary: Send authentication OTP to mobile number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  example: "+91 98450 12345"
+      responses:
+        '200':
+          description: OTP dispatched
+  /auth/verify-otp:
+    post:
+      summary: Verify OTP code and return customer session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                otp:
+                  type: string
+                  example: "1234"
+      responses:
+        '200':
+          description: Authentication successful
+  /subscriptions:
+    get:
+      summary: Get active customer subscriptions
+      parameters:
+        - name: customerId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of subscriptions
+    post:
+      summary: Create new daily or custom subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                productId:
+                  type: string
+                frequency:
+                  type: string
+                  enum: [daily, alternate_day, custom_days, monthly]
+                quantity:
+                  type: number
+                  example: 1.0
+                timeSlot:
+                  type: string
+                  enum: [morning, evening]
+      responses:
+        '201':
+          description: Subscription activated
+  /subscriptions/{id}/skip-date:
+    post:
+      summary: Pause or resume delivery on a specific calendar date
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  example: "2026-10-31"
+      responses:
+        '200':
+          description: Date skip state updated
+  /customer/wallet:
+    get:
+      summary: Get customer wallet balance and passbook
+      parameters:
+        - name: customerId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Wallet balance and transactions
+  /customer/wallet/recharge:
+    post:
+      summary: Top up customer wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                amount:
+                  type: number
+                  example: 1000
+      responses:
+        '200':
+          description: Wallet recharged
+  /delivery/daily-run:
+    get:
+      summary: Delivery partner route manifest
+      parameters:
+        - name: slot
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [morning, evening]
+      responses:
+        '200':
+          description: List of delivery stops
+  /delivery/orders/{id}/status:
+    put:
+      summary: Driver updates delivery stop status and bottle returns
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [delivered, not_at_home]
+                bottlesReturned:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: Order status updated
+  /farm/cows:
+    get:
+      summary: Cattle registry
+      responses:
+        '200':
+          description: List of cows
+    post:
+      summary: Register new cow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tagNumber:
+                  type: string
+                name:
+                  type: string
+                breed:
+                  type: string
+      responses:
+        '201':
+          description: Cow registered
+  /farm/milk-records:
+    get:
+      summary: Get daily milk yield logs
+      responses:
+        '200':
+          description: Milk records
+    post:
+      summary: Log morning or evening cow milk yield
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cowId:
+                  type: string
+                session:
+                  type: string
+                  enum: [morning, evening]
+                yieldLitres:
+                  type: number
+                fat:
+                  type: number
+                snf:
+                  type: number
+      responses:
+        '201':
+          description: Yield recorded
+  /reports/export:
+    get:
+      summary: Stream CSV report download
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [sales, milk]
+      responses:
+        '200':
+          description: CSV file stream

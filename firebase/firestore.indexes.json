@@ -1,0 +1,47 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "milk_records",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "farmId", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "milk_records",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "farmId", "order": "ASCENDING" },
+        { "fieldPath": "cowId", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "cows",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "farmId", "order": "ASCENDING" },
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "tagId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "farmId", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "reminders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "farmId", "order": "ASCENDING" },
+        { "fieldPath": "dueDate", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amrit Dairy Farm - Management System</title>
+  <meta name="description" content="Complete Dairy Farm Management System for cows, milk production, feed inventory, veterinary medicine, withdrawal periods, and expenses." />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- =================================================================== -->
+    <!-- LEFT SIDEBAR MENU                                                   -->
+    <!-- =================================================================== -->
+    <aside class="sidebar" aria-label="Farm Management Navigation">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🐄</div>
+        <div class="sidebar-brand">
+          <h2>Amrit Dairy Farm</h2>
+          <p>Management System</p>
+        </div>
+      </div>
+
+      <!-- Current User & Role Profile Widget -->
+      <div class="sidebar-user-card">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="user-avatar-circle" id="sidebar-user-avatar">S</div>
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color: #fff;" id="sidebar-user-name">Sardar Gurmeet Singh</div>
+            <span class="role-badge admin" id="sidebar-user-role-badge">ADMIN</span>
+          </div>
+        </div>
+        <button style="background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 16px;" onclick="openLoginModal()" title="Switch Account / Login">
+          🔑
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <button class="nav-item-btn active" data-section="dashboard" onclick="switchErpSection('dashboard')">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item-btn" data-section="cows" onclick="switchErpSection('cows')">
+          <span class="nav-icon">🐄</span>
+          <span>Cows</span>
+        </button>
+        <button class="nav-item-btn" data-section="milk" onclick="switchErpSection('milk')">
+          <span class="nav-icon">🥛</span>
+          <span>Milk Production</span>
+        </button>
+        <button class="nav-item-btn" data-section="medicine" onclick="switchErpSection('medicine')">
+          <span class="nav-icon">💊</span>
+          <span>Medicine</span>
+        </button>
+        <button class="nav-item-btn" data-section="feed" onclick="switchErpSection('feed')">
+          <span class="nav-icon">🌾</span>
+          <span>Cow Feed</span>
+        </button>
+        <button class="nav-item-btn" id="nav-btn-expenses" data-section="expenses" onclick="switchErpSection('expenses')">
+          <span class="nav-icon">💰</span>
+          <span>Expenses</span>
+        </button>
+        <button class="nav-item-btn" id="nav-btn-reports" data-section="reports" onclick="switchErpSection('reports')">
+          <span class="nav-icon">📈</span>
+          <span>Reports</span>
+        </button>
+        <button class="nav-item-btn" data-section="settings" onclick="switchErpSection('settings')">
+          <span class="nav-icon">⚙️</span>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logoutUser()">
+          <span>🚪</span>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- =================================================================== -->
+    <!-- MAIN CONTENT WRAPPER & TOP BAR                                      -->
+    <!-- =================================================================== -->
+    <div class="main-wrapper">
+
+      <header class="top-navbar">
+        <div class="top-nav-left">
+          <button class="mobile-menu-btn" onclick="toggleMobileSidebar()" aria-label="Toggle Menu">☰</button>
+          <h1 class="page-main-title" id="page-header-title">Farm Executive Dashboard</h1>
+        </div>
+
+        <div class="top-nav-right">
+          <!-- Role Quick Toggle Pills -->
+          <div class="role-quick-toggle" title="Switch between Owner and Worker views">
+            <button class="role-toggle-btn active" data-role="admin" onclick="quickSwitchRole('admin')">👑 Owner (Admin)</button>
+            <button class="role-toggle-btn" data-role="staff" onclick="quickSwitchRole('staff')">👷 Worker (Staff)</button>
+          </div>
+
+          <!-- Session Countdown Display -->
+          <div class="session-tag" title="Auto logout on inactivity">
+            <span>⏱️</span>
+            <span id="session-timer-display">30:00</span>
+          </div>
+
+          <!-- Language Picker -->
+          <div style="display: flex; gap: 4px;">
+            <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" onclick="setLanguage('hi')">हिंदी</button>
+            <button class="lang-btn" onclick="setLanguage('kn')">ಕನ್ನಡ</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- =============================================================== -->
+      <!-- 1. DASHBOARD VIEW                                               -->
+      <!-- =============================================================== -->
+      <section class="page-view active" id="section-dashboard">
+
+        <!-- KPI Metrics Grid -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-card-header">
+              <span class="kpi-label">Today's Total Milk</span>
+              <span class="kpi-icon">🥛</span>
+            </div>
+            <div class="kpi-num" id="dash-kpi-total-milk">74.0 L</div>
+            <div class="kpi-subtitle" id="dash-kpi-morning-evening">🌅 Morning: 48L | 🌇 Evening: 26L</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-card-header">
+              <span class="kpi-label">Total Cattle Herd</span>
+              <span class="kpi-icon">🐄</span>
+            </div>
+            <div class="kpi-num" id="dash-kpi-total-cows">6</div>
+            <div class="kpi-subtitle" id="dash-kpi-cows-breakdown">In Milk: 3 • Dry: 1 • Pregnant: 2 • Sick: 1</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-card-header">
+              <span class="kpi-label">Today's Recorded Expenses</span>
+              <span class="kpi-icon">💰</span>
+            </div>
+            <div class="kpi-num" id="dash-kpi-today-expenses">₹3,097</div>
+            <div class="kpi-subtitle">Feed, Labour & Veterinary Care</div>
+          </div>
+        </div>
+
+        <!-- Alerts Section (Withdrawal, Low Stock, Vaccinations) -->
+        <div class="alert-box">
+          <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 14px; color: #0f172a;">
+            ⚠️ Farm Operation Alerts & Reminders
+          </h3>
+          <div id="dashboard-alerts-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Quick Links to All Sections -->
+        <h3 style="font-size: 16px; font-weight: 800; margin: 24px 0 12px; color: #0f172a;">
+          ⚡ Quick Links to Farm Sections
+        </h3>
+        <div class="quick-links-grid">
+          <div class="quick-link-card" onclick="switchErpSection('cows')">
+            <div class="quick-link-icon">🐄</div>
+            <div>
+              <h4 style="font-size: 15px; font-weight: 800;">Cow Master Record</h4>
+              <p style="font-size: 12px; color: #64748b;">Tag ID, breed, age, full history</p>
+            </div>
+          </div>
+
+          <div class="quick-link-card" onclick="switchErpSection('milk')">
+            <div class="quick-link-icon">🥛</div>
+            <div>
+              <h4 style="font-size: 15px; font-weight: 800;">Milk Production</h4>
+              <p style="font-size: 12px; color: #64748b;">Daily morning/evening yield logger</p>
+            </div>
+          </div>
+
+          <div class="quick-link-card" onclick="switchErpSection('medicine')">
+            <div class="quick-link-icon">💊</div>
+            <div>
+              <h4 style="font-size: 15px; font-weight: 800;">Medicines & Health</h4>
+              <p style="font-size: 12px; color: #64748b;">Treatments & withdrawal tracker</p>
+            </div>
+          </div>
+
+          <div class="quick-link-card" onclick="switchErpSection('feed')">
+            <div class="quick-link-icon">🌾</div>
+            <div>
+              <h4 style="font-size: 15px; font-weight: 800;">Cow Feed Inventory</h4>
+              <p style="font-size: 12px; color: #64748b;">Daily rations & cost per litre</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- 2. COWS MASTER RECORD VIEW                                      -->
+      <!-- =============================================================== -->
+      <section class="page-view" id="section-cows">
+        <div class="page-action-header">
+          <div class="page-action-title">
+            <h2>Cattle Herd Master Registry</h2>
+            <p>Master records with tag number, breed, lactation stage, and 360° health history.</p>
+          </div>
+          <div class="page-controls-group">
+            <input type="text" class="search-input" id="cow-search-input" placeholder="🔍 Search tag, name, breed..." oninput="filterCowsTable()" />
+            <select class="filter-select" id="cow-status-filter" onchange="filterCowsTable()">
+              <option value="all">All Statuses</option>
+              <option value="milking">Milking</option>
+              <option value="dry">Dry Period</option>
+              <option value="pregnant">Pregnant</option>
+              <option value="sick">Sick / Treated</option>
+            </select>
+            <button class="btn-primary" onclick="openAddCowModal()">
+              <span>+</span> <span>Add New Cow</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Tag ID & Name</th>
+                  <th>Breed & Type</th>
+                  <th>Status</th>
+                  <th>Age & DOB</th>
+                  <th>Lactation & Calving</th>
+                  <th>Daily Avg Yield</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="cows-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- 3. MILK PRODUCTION LIST VIEW                                    -->
+      <!-- =============================================================== -->
+      <section class="page-view" id="section-milk">
+        <div class="page-action-header">
+          <div class="page-action-title">
+            <h2>Milk Production & Sales Accounting</h2>
+            <p>Daily morning and evening yields, Fat %, SNF %, milk sold vs kept, and rate per litre.</p>
+          </div>
+          <div class="page-controls-group">
+            <input type="date" class="search-input" id="milk-date-filter" onchange="renderMilkView()" />
+            <select class="filter-select" id="milk-cow-filter" onchange="renderMilkView()">
+              <option value="all">All Cows</option>
+            </select>
+            <button class="btn-outline" onclick="exportReportFile('milk')">
+              📥 Export CSV/Excel
+            </button>
+            <button class="btn-primary" onclick="openAddMilkModal()">
+              <span>+</span> <span>Log Daily Milk</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Production Graph & Summary Stats -->
+        <div class="chart-container-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h3 style="font-size: 16px; font-weight: 800; color: #064e3b;">Farm Milk Production Trend (Past 7 Days)</h3>
+              <p style="font-size: 12px; color: #64748b;">Daily output totals in litres across all milking cattle.</p>
+            </div>
+            <div style="display: flex; gap: 16px; font-size: 13px;">
+              <div>Total: <strong id="milk-summary-total-litres" style="color: #16a34a; font-size: 16px;">0 L</strong></div>
+              <div>Morning: <strong id="milk-summary-morning">0 L</strong></div>
+              <div>Evening: <strong id="milk-summary-evening">0 L</strong></div>
+              <div>Revenue: <strong id="milk-summary-revenue" style="color: #15803d; font-size: 16px;">₹0</strong></div>
+            </div>
+          </div>
+          <svg id="milk-trend-svg" width="100%" height="180" viewBox="0 0 600 180" style="background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;"></svg>
+        </div>
+
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Cattle</th>
+                  <th>Morning Litres</th>
+                  <th>Evening Litres</th>
+                  <th>Total Daily</th>
+                  <th>Fat & SNF</th>
+                  <th>Dispatched vs Kept</th>
+                  <th>Rate & Income</th>
+                </tr>
+              </thead>
+              <tbody id="milk-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- 4. MEDICINE & VETERINARY LIST VIEW                             -->
+      <!-- =============================================================== -->
+      <section class="page-view" id="section-medicine">
+        <div class="page-action-header">
+          <div class="page-action-title">
+            <h2>Veterinary Medicines & Treatments</h2>
+            <p>Inventory, expiration dates, treatment records, and <strong>Antibiotic Withdrawal Period Tracker</strong>.</p>
+          </div>
+          <div class="page-controls-group">
+            <button class="btn-outline" onclick="openAddTreatmentModal()">
+              <span>🩺</span> <span>Log Treatment</span>
+            </button>
+            <button class="btn-primary" onclick="alert('Medicine stock entry opened')">
+              <span>+</span> <span>Add Medicine Stock</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. Treatment Records & Withdrawal Tracker Table -->
+        <h3 style="font-size: 17px; font-weight: 800; margin: 20px 0 10px; color: #064e3b;">
+          🩺 Illness & Treatment Records (With Milk Withdrawal Tracker)
+        </h3>
+        <div class="table-card" style="margin-bottom: 30px;">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Treatment Date</th>
+                  <th>Cow Tag</th>
+                  <th>Illness / Diagnosis</th>
+                  <th>Medicine & Dose</th>
+                  <th>Veterinarian</th>
+                  <th>Withdrawal Safety Status</th>
+                </tr>
+              </thead>
+              <tbody id="treatments-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Medicine Inventory Table -->
+        <h3 style="font-size: 17px; font-weight: 800; margin: 20px 0 10px; color: #064e3b;">
+          💊 Medicine & Vaccine Stock Inventory
+        </h3>
+        <div class="table-card" style="margin-bottom: 30px;">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Medicine Name</th>
+                  <th>Type</th>
+                  <th>Stock Available</th>
+                  <th>Expiry Date</th>
+                  <th>Price</th>
+                  <th>Supplier</th>
+                  <th>Withdrawal Period</th>
+                </tr>
+              </thead>
+              <tbody id="medicine-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Vaccination Schedule Table -->
+        <h3 style="font-size: 17px; font-weight: 800; margin: 20px 0 10px; color: #064e3b;">
+          💉 Vaccination Schedule & Reminders
+        </h3>
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Cow</th>
+                  <th>Vaccine</th>
+                  <th>Date Administered</th>
+                  <th>Next Due Date</th>
+                  <th>Vet Doctor</th>
+                </tr>
+              </thead>
+              <tbody id="vaccinations-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- 5. COW FEED LIST VIEW                                           -->
+      <!-- =============================================================== -->
+      <section class="page-view" id="section-feed">
+        <div class="page-action-header">
+          <div class="page-action-title">
+            <h2>Cow Feed Inventory & Daily Rations</h2>
+            <p>Green fodder, dry straw, concentrate pellets, mineral mix, and calculated feed cost per litre of milk.</p>
+          </div>
+          <div class="page-controls-group">
+            <button class="btn-outline" onclick="openAddRationModal()">
+              <span>🥣</span> <span>Record Daily Ration</span>
+            </button>
+            <button class="btn-primary" onclick="alert('Add feed stock modal opened')">
+              <span>+</span> <span>Restock Feed</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Feed Efficiency KPIs -->
+        <div class="kpi-grid" style="margin-bottom: 24px;">
+          <div class="kpi-card">
+            <span class="kpi-label">Today's Feed Cost</span>
+            <div class="kpi-num" id="feed-metric-daily-cost">₹1,897.50</div>
+            <div class="kpi-subtitle">Green Fodder, Pellets, Straw & Minerals</div>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Feed Cost Per Litre of Milk</span>
+            <div class="kpi-num" id="feed-metric-cost-per-litre" style="color: #0284c7;">₹25.64 / L</div>
+            <div class="kpi-subtitle">Calculated against today's total production</div>
+          </div>
+        </div>
+
+        <!-- Daily Feeding Logs Table -->
+        <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 10px; color: #064e3b;">
+          🥣 Daily Feed Distributed to Cattle
+        </h3>
+        <div class="table-card" style="margin-bottom: 30px;">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Target Cow or Group</th>
+                  <th>Feed Item</th>
+                  <th>Quantity Given</th>
+                  <th>Rate</th>
+                  <th>Total Cost</th>
+                </tr>
+              </thead>
+              <tbody id="feeding-logs-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Feed Stock Table -->
+        <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 10px; color: #064e3b;">
+          🌾 Feed Inventory & Low Stock Alerts
+        </h3>
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Feed Type</th>
+                  <th>Category</th>
+                  <th>Available Stock</th>
+                  <th>Alert Level</th>
+                  <th>Cost per Kg</th>
+                  <th>Supplier</th>
+                </tr>
+              </thead>
+              <tbody id="feed-stock-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- 6. EXPENSES (ADMIN ONLY) VIEW                                   -->
+      <!-- =============================================================== -->
+      <section class="page-view" id="section-expenses">
+        <div class="page-action-header">
+          <div class="page-action-title">
+            <h2>Farm Expenses & Accounts (Admin Only)</h2>
+            <p>Categorized operational expenses: feed, medicine, labour, electricity, and maintenance.</p>
+          </div>
+          <div class="page-controls-group">
+            <select class="filter-select" id="expense-cat-filter" onchange="renderExpensesView()">
+              <option value="all">All Categories</option>
+              <option value="feed">Feed</option>
+              <option value="medicine">Medicine / Veterinary</option>
+              <option value="labour">Labour & Farm Hands</option>
+              <option value="electricity">Electricity & Utilities</option>
+              <option value="other">Maintenance & Other</option>
+            </select>
+            <button class="btn-primary" onclick="openAddExpenseModal()">
+              <span>+</span> <span>Log Expense</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 15px; font-weight: 800; color: #64748b;">Total Expenses Recorded:</span>
+          <span style="font-size: 28px; font-weight: 900; color: #dc2626;" id="expenses-total-display">₹0</span>
+        </div>
+
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Payee / Vendor</th>
+                  <th>Description</th>
+                  <th>Payment Mode</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="expenses-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- 7. REPORTS & PROFIT/LOSS (ADMIN ONLY) VIEW                     -->
+      <!-- =============================================================== -->
+      <section class="page-view" id="section-reports">
+        <div class="page-action-header">
+          <div class="page-action-title">
+            <h2>Monthly Profit & Loss Report (Admin Only)</h2>
+            <p>Income from milk sales versus operational expenses and net operating margin.</p>
+          </div>
+          <div class="page-controls-group">
+            <button class="btn-outline" onclick="exportReportFile('sales')">
+              📥 Export Sales CSV
+            </button>
+            <button class="btn-outline" onclick="exportReportFile('milk')">
+              📥 Export Milk Production CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-label">Gross Milk Sales Income</span>
+            <div class="kpi-num" id="pnl-milk-income" style="color: #16a34a;">₹0</div>
+            <div class="kpi-subtitle" id="pnl-milk-sold-litres">0 Litres Sold</div>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Total Operational Expenses</span>
+            <div class="kpi-num" id="pnl-total-expenses" style="color: #dc2626;">₹0</div>
+            <div class="kpi-subtitle">Feed, Vet, Labour, Electricity</div>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Net Operating Profit / Loss</span>
+            <div class="kpi-num" id="pnl-net-profit">₹0</div>
+            <div class="kpi-subtitle">Net Recorded Margin</div>
+          </div>
+        </div>
+
+        <!-- Expense Category Breakdown Table -->
+        <h3 style="font-size: 17px; font-weight: 800; margin: 20px 0 10px; color: #064e3b;">
+          Expense Category Breakdown
+        </h3>
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Recorded Amount</th>
+                  <th>Percentage of Expenses</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>🌾 Cow Feed</strong></td>
+                  <td id="pnl-feed-expense" style="font-weight: 900;">₹0</td>
+                  <td>~ 40%</td>
+                </tr>
+                <tr>
+                  <td><strong>💊 Medicines & Vet Care</strong></td>
+                  <td id="pnl-medicine-expense" style="font-weight: 900;">₹0</td>
+                  <td>~ 8%</td>
+                </tr>
+                <tr>
+                  <td><strong>👷 Labour & Farm Hands</strong></td>
+                  <td id="pnl-labour-expense" style="font-weight: 900;">₹0</td>
+                  <td>~ 32%</td>
+                </tr>
+                <tr>
+                  <td><strong>⚡ Electricity & Cold Chiller</strong></td>
+                  <td id="pnl-electricity-expense" style="font-weight: 900;">₹0</td>
+                  <td>~ 12%</td>
+                </tr>
+                <tr>
+                  <td><strong>🔧 Maintenance & Disinfectants</strong></td>
+                  <td id="pnl-other-expense" style="font-weight: 900;">₹0</td>
+                  <td>~ 8%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- 8. SETTINGS VIEW                                                -->
+      <!-- =============================================================== -->
+      <section class="page-view" id="section-settings">
+        <div class="page-action-header">
+          <div class="page-action-title">
+            <h2>Farm Settings & Administration</h2>
+            <p>Manage users, breeds, feed types, medicine categories, languages, and backup data.</p>
+          </div>
+        </div>
+
+        <!-- Users & Role Management Table -->
+        <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 12px; color: #064e3b;">
+          👥 Users & Access Permissions
+        </h3>
+        <div class="table-card" style="margin-bottom: 30px;">
+          <div class="table-responsive">
+            <table class="erp-table">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th>Permissions</th>
+                </tr>
+              </thead>
+              <tbody id="settings-users-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Master Categories Overview -->
+        <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 12px; color: #064e3b;">
+          🏷️ Farm Taxonomies & Master Lists
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 30px;">
+          <div style="background: #fff; padding: 18px; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <h4 style="font-size: 15px; font-weight: 800; margin-bottom: 8px;">Cattle Breeds</h4>
+            <p style="font-size: 13px; color: #475569;">Gir, Sahiwal, Red Sindhi, Murrah Buffalo, Tharparkar, HF Cross, Jersey Cross</p>
+          </div>
+          <div style="background: #fff; padding: 18px; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <h4 style="font-size: 15px; font-weight: 800; margin-bottom: 8px;">Feed Types</h4>
+            <p style="font-size: 13px; color: #475569;">Green Fodder, Dry Wheat Straw, Concentrate Pellets (22% Protein), Oil Cake, Mineral Mix, Corn Silage</p>
+          </div>
+          <div style="background: #fff; padding: 18px; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <h4 style="font-size: 15px; font-weight: 800; margin-bottom: 8px;">Medicine Categories</h4>
+            <p style="font-size: 13px; color: #475569;">Antibiotics, Vaccines, Dewormers, Vitamins/Supplements, Antiseptics, Pain Relief</p>
+          </div>
+        </div>
+
+        <!-- Backup & Restore Box -->
+        <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 12px; color: #064e3b;">
+          💾 Data Backup & Restore
+        </h3>
+        <div style="background: #fff; padding: 22px; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <h4 style="font-size: 16px; font-weight: 800;">Download Complete Database State</h4>
+            <p style="font-size: 13px; color: #64748b;">Export all cows, milk yields, medicine treatments, feeds, and accounts in JSON format.</p>
+          </div>
+          <button class="btn-primary" onclick="downloadDatabaseBackup()">
+            📥 Download Backup (JSON)
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- MODALS (Cow History, Add Cow, Log Milk, Add Treatment, Log Expense) -->
+  <!-- =================================================================== -->
+
+  <!-- 1. 360° Cow History Modal -->
+  <div class="modal-overlay" id="cow-history-modal">
+    <div class="modal-box large">
+      <div class="modal-header">
+        <h3 id="hist-modal-title">Cow 360° Lifetime History</h3>
+        <button class="modal-close-btn" onclick="document.getElementById('cow-history-modal').classList.remove('active')">✕</button>
+      </div>
+      <div>
+        <div style="display: flex; gap: 20px; align-items: center; background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+          <img id="hist-modal-photo" src="" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px; border: 2px solid #cbd5e1;" />
+          <div id="hist-modal-details" style="font-size: 13px; line-height: 1.6;"></div>
+        </div>
+
+        <h4 style="font-size: 15px; font-weight: 800; margin-bottom: 8px; color: #064e3b;">Recent Milk Production Logs</h4>
+        <div class="table-card" style="margin-bottom: 20px;">
+          <table class="erp-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Morning</th>
+                <th>Evening</th>
+                <th>Total Yield</th>
+                <th>Fat & SNF</th>
+              </tr>
+            </thead>
+            <tbody id="hist-milk-table-body"></tbody>
+          </table>
+        </div>
+
+        <h4 style="font-size: 15px; font-weight: 800; margin-bottom: 8px; color: #064e3b;">Veterinary & Treatment Records</h4>
+        <div class="table-card">
+          <table class="erp-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Illness</th>
+                <th>Medicine Given</th>
+                <th>Vet Name</th>
+                <th>Withdrawal Status</th>
+              </tr>
+            </thead>
+            <tbody id="hist-treatments-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Add New Cow Modal -->
+  <div class="modal-overlay" id="add-cow-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>+ Register New Cow</h3>
+        <button class="modal-close-btn" onclick="document.getElementById('add-cow-modal').classList.remove('active')">✕</button>
+      </div>
+      <form onsubmit="submitAddCow(event)">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Ear Tag / RFID ID</label>
+            <input type="text" class="form-input" id="add-cow-tag" placeholder="e.g. AMR-009" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" id="add-cow-name" placeholder="e.g. Anandi" required />
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Breed</label>
+            <select class="form-select" id="add-cow-breed"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Current Status</label>
+            <select class="form-select" id="add-cow-status">
+              <option value="milking">Milking</option>
+              <option value="dry">Dry Period</option>
+              <option value="pregnant">Pregnant</option>
+              <option value="sick">Sick / Treated</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-input" id="add-cow-dob" value="2021-03-15" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Purchase Date</label>
+            <input type="date" class="form-input" id="add-cow-purchase-date" value="2024-01-10" />
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Last Calving Date</label>
+            <input type="date" class="form-input" id="add-cow-calving-date" value="2026-08-10" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Daily Avg Yield (Litres)</label>
+            <input type="number" step="0.5" class="form-input" id="add-cow-yield" value="14.0" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+          Save Cow Record
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Log Daily Milk Production Modal -->
+  <div class="modal-overlay" id="add-milk-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>+ Log Daily Milk Yield</h3>
+        <button class="modal-close-btn" onclick="document.getElementById('add-milk-modal').classList.remove('active')">✕</button>
+      </div>
+      <form onsubmit="submitDailyMilk(event)">
+        <div class="form-group">
+          <label class="form-label">Select Cow (Tag Number)</label>
+          <select class="form-select" id="log-milk-cow-select" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Production Date</label>
+          <input type="date" class="form-input" id="log-milk-date" required />
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Morning Litres (4:30 AM)</label>
+            <input type="number" step="0.1" class="form-input" id="log-milk-morning" placeholder="e.g. 8.5" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Evening Litres (4:30 PM)</label>
+            <input type="number" step="0.1" class="form-input" id="log-milk-evening" placeholder="e.g. 6.0" required />
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Fat % (Optional)</label>
+            <input type="number" step="0.1" class="form-input" id="log-milk-fat" value="4.5" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">SNF % (Optional)</label>
+            <input type="number" step="0.1" class="form-input" id="log-milk-snf" value="8.8" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sale Rate (₹ per Litre)</label>
+          <input type="number" step="1" class="form-input" id="log-milk-rate" value="65" />
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+          Save Milk Production Entry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Log Veterinary Treatment & Withdrawal Modal -->
+  <div class="modal-overlay" id="add-treatment-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>+ Log Veterinary Treatment</h3>
+        <button class="modal-close-btn" onclick="document.getElementById('add-treatment-modal').classList.remove('active')">✕</button>
+      </div>
+      <form onsubmit="submitTreatment(event)">
+        <div class="form-group">
+          <label class="form-label">Select Cow</label>
+          <select class="form-select" id="add-trt-cow-select" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Illness / Condition</label>
+          <input type="text" class="form-input" id="add-trt-illness" placeholder="e.g. Mastitis, Bloat, Tick fever, Deworming" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Medicine Administered</label>
+          <select class="form-select" id="add-trt-med-select" required></select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Dose & Route</label>
+            <input type="text" class="form-input" id="add-trt-dose" placeholder="e.g. 15 ml IM" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Treatment Date</label>
+            <input type="date" class="form-input" id="add-trt-date" required />
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Vet Doctor Name</label>
+            <input type="text" class="form-input" id="add-trt-vet" value="Dr. Ramesh BVSc" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Antibiotic Withdrawal Days</label>
+            <input type="number" class="form-input" id="add-trt-withdrawal" value="4" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Treatment Cost (₹)</label>
+          <input type="number" class="form-input" id="add-trt-cost" value="450" />
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+          Log Treatment & Set Withdrawal Alert
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Record Daily Feed Ration Modal -->
+  <div class="modal-overlay" id="add-ration-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>+ Record Daily Feed Ration</h3>
+        <button class="modal-close-btn" onclick="document.getElementById('add-ration-modal').classList.remove('active')">✕</button>
+      </div>
+      <form onsubmit="submitFeedRation(event)">
+        <div class="form-group">
+          <label class="form-label">Select Feed Type</label>
+          <select class="form-select" id="add-ration-feed-select" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Target Cattle or Group</label>
+          <select class="form-select" id="add-ration-target">
+            <option value="All Lactating Cows (3 Cows)">All Lactating Cows</option>
+            <option value="All Herd (6 Animals)">Entire Herd</option>
+            <option value="Dry Period Cows">Dry Period Cows</option>
+            <option value="AMR-001 (Kamadhenu)">Individual: AMR-001</option>
+            <option value="AMR-003 (Yamuna Buffalo)">Individual: AMR-003</option>
+          </select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Quantity Distributed (kg)</label>
+            <input type="number" step="1" class="form-input" id="add-ration-qty" placeholder="e.g. 50" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-input" id="add-ration-date" required />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+          Save Feed Ration
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Log Expense Modal -->
+  <div class="modal-overlay" id="add-expense-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>+ Log Farm Expense (Admin)</h3>
+        <button class="modal-close-btn" onclick="document.getElementById('add-expense-modal').classList.remove('active')">✕</button>
+      </div>
+      <form onsubmit="submitExpense(event)">
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select" id="add-exp-cat">
+            <option value="feed">Feed</option>
+            <option value="medicine">Medicine / Vet Fees</option>
+            <option value="labour">Labour & Wages</option>
+            <option value="electricity">Electricity / Power</option>
+            <option value="other">Maintenance & Other</option>
+          </select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Payee / Vendor</label>
+            <input type="text" class="form-input" id="add-exp-payee" placeholder="e.g. Kisan Feeds" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Amount (₹)</label>
+            <input type="number" step="0.5" class="form-input" id="add-exp-amount" placeholder="e.g. 1500" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description / Bill Notes</label>
+          <input type="text" class="form-input" id="add-exp-desc" placeholder="Details of expense" required />
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Payment Mode</label>
+            <select class="form-select" id="add-exp-mode">
+              <option value="Cash">Cash</option>
+              <option value="UPI">UPI</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expense Date</label>
+            <input type="date" class="form-input" id="add-exp-date" required />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+          Record Expense
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 7. Login / Role Authentication Modal -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>🔑 Login to Dairy Farm ERP</h3>
+        <button class="modal-close-btn" onclick="closeLoginModal()">✕</button>
+      </div>
+      <form onsubmit="submitLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Username or Mobile Number</label>
+          <input type="text" class="form-input" id="login-username" placeholder="e.g. admin or 9876543210" value="admin" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="login-password" value="admin123" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Or Login with Phone OTP</label>
+          <input type="text" class="form-input" id="login-otp" placeholder="Enter OTP (Test Demo Code: 1234)" />
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <a href="#" style="font-size: 13px; color: #16a34a; font-weight: 700; text-decoration: none;" onclick="triggerForgotPassword()">Forgot Password?</a>
+          <span style="font-size: 12px; color: #64748b;">Roles: Admin vs Staff</span>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+          Login to System
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/i18n.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

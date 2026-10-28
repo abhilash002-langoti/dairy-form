@@ -1,0 +1,30 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+    
+    function isDocOrImage() {
+      return request.resource.contentType.matches('image/.*') || 
+             request.resource.contentType == 'application/pdf';
+    }
+
+    // Cow photos: max 5MB, images only, scoped to farmId
+    match /farms/{farmId}/cows/{allImages=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isImage() && request.resource.size < 5 * 1024 * 1024;
+    }
+
+    // Health documents / vet prescriptions: max 10MB
+    match /farms/{farmId}/health/{allDocs=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isDocOrImage() && request.resource.size < 10 * 1024 * 1024;
+    }
+  }
+}

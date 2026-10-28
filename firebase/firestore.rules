@@ -1,0 +1,125 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    // Get current user's profile to check farmId
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isFarmMember(farmId) {
+      return isAuthenticated() && (
+        getUserData().farmId == farmId ||
+        resource.data.farmId == farmId ||
+        request.resource.data.farmId == farmId
+      );
+    }
+
+    function isFarmOwner(farmId) {
+      return isAuthenticated() && (
+        get(/databases/$(database)/documents/farms/$(farmId)).data.ownerUid == request.auth.uid
+      );
+    }
+
+    // 1. Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAuthenticated() && request.auth.uid == userId;
+      allow delete: if false; // User accounts are deactivated, not directly dropped
+    }
+
+    // 2. Farms collection
+    match /farms/{farmId} {
+      allow read: if isAuthenticated() && (resource.data.ownerUid == request.auth.uid || getUserData().farmId == farmId);
+      allow create: if isAuthenticated() && request.resource.data.ownerUid == request.auth.uid;
+      allow update: if isAuthenticated() && (resource.data.ownerUid == request.auth.uid || getUserData().role == 'admin');
+      allow delete: if isAuthenticated() && resource.data.ownerUid == request.auth.uid;
+    }
+
+    // 3. Cows collection
+    match /cows/{cowId} {
+      allow read: if isAuthenticated() && isFarmMember(resource.data.farmId);
+      allow create: if isAuthenticated() 
+        && isFarmMember(request.resource.data.farmId)
+        && request.resource.data.tagId is string 
+        && request.resource.data.tagId.size() > 0
+        && request.resource.data.status in ['active', 'dry', 'pregnant', 'sick', 'sold', 'deceased', 'archived']
+        && (request.resource.data.purchaseCost == null || request.resource.data.purchaseCost >= 0);
+      allow update: if isAuthenticated() 
+        && isFarmMember(resource.data.farmId)
+        && request.resource.data.farmId == resource.data.farmId;
+      allow delete: if isAuthenticated() && isFarmOwner(resource.data.farmId);
+    }
+
+    // 4. Milk records collection
+    match /milk_records/{recordId} {
+      allow read: if isAuthenticated() && isFarmMember(resource.data.farmId);
+      allow create: if isAuthenticated() 
+        && isFarmMember(request.resource.data.farmId)
+        && request.resource.data.quantityLitres is number
+        && request.resource.data.quantityLitres >= 0
+        && request.resource.data.session in ['morning', 'evening']
+        && request.resource.data.date is string;
+      allow update: if isAuthenticated() 
+        && isFarmMember(resource.data.farmId)
+        && request.resource.data.quantityLitres >= 0
+        && request.resource.data.farmId == resource.data.farmId;
+      allow delete: if isAuthenticated() && isFarmMember(resource.data.farmId);
+    }
+
+    // 5. Feed inventory
+    match /feed_inventory/{feedId} {
+      allow read: if isAuthenticated() && isFarmMember(resource.data.farmId);
+      allow create: if isAuthenticated() 
+        && isFarmMember(request.resource.data.farmId)
+        && request.resource.data.quantityKg >= 0;
+      allow update: if isAuthenticated() 
+        && isFarmMember(resource.data.farmId)
+        && request.resource.data.quantityKg >= 0;
+      allow delete: if isAuthenticated() && isFarmOwner(resource.data.farmId);
+    }
+
+    // 6. Feed usage records
+    match /feed_records/{recordId} {
+      allow read: if isAuthenticated() && isFarmMember(resource.data.farmId);
+      allow create: if isAuthenticated() 
+        && isFarmMember(request.resource.data.farmId)
+        && request.resource.data.quantityUsedKg >= 0;
+      allow update, delete: if isAuthenticated() && isFarmMember(resource.data.farmId);
+    }
+
+    // 7. Health records
+    match /health_records/{recordId} {
+      allow read: if isAuthenticated() && isFarmMember(resource.data.farmId);
+      allow create: if isAuthenticated() && isFarmMember(request.resource.data.farmId);
+      allow update, delete: if isAuthenticated() && isFarmMember(resource.data.farmId);
+    }
+
+    // 8. Transactions (Income / Expenses)
+    match /transactions/{txId} {
+      allow read: if isAuthenticated() && isFarmMember(resource.data.farmId);
+      allow create: if isAuthenticated() 
+        && isFarmMember(request.resource.data.farmId)
+        && request.resource.data.amount >= 0
+        && request.resource.data.type in ['income', 'expense'];
+      allow update, delete: if isAuthenticated() && isFarmMember(resource.data.farmId);
+    }
+
+    // 9. Reminders
+    match /reminders/{reminderId} {
+      allow read: if isAuthenticated() && isFarmMember(resource.data.farmId);
+      allow create, update, delete: if isAuthenticated() && isFarmMember(request.resource.data.farmId);
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
